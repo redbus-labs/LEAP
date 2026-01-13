@@ -363,7 +363,7 @@ Please read our [Contributing Guidelines](https://github.com/redbus-labs/LEAP/bl
 
 * [Smruti Sourav Sahoo](https://www.linkedin.com/in/smruti-sourav-2000/), SDET, redBus — for supporting the development efforts and being an early adopter of the project
 * [Vishnuvardhan Reddy Bhumannagari](https://www.facebook.com/share/1GHW8SHjLq), Senior SDET Manager, redBus — for introducing visual assertions at redBus
-* [Rithish Saralaya](https://www.linkedin.com/in/rithish/), SVP Engineering, redBus — for organizing Project Nirman, an AI-first initiative that helped uncover key gaps in my framework and fast-track its growth.
+* [Rithish Saralaya](https://www.linkedin.com/in/rithish/), SVP Engineering, redBus — for organizing Project Nirman, an AI-first initiative that helped uncover key gaps in the framework and fast-track its growth.
 
 ---
 ## Issues and Support
