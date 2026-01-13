@@ -64,7 +64,8 @@ leap-agentic/
 │           ├── dweb.yaml                 # DWeb-specific config
 │           ├── android.yaml              # Android-specific config
 │           └── ios.yaml                  # iOS-specific config
-├── credentials.json                      # Add LLM API key here
+├── credentials.json                      # Your API keys (not tracked in git)
+├── credentials.json.example              # Template for credentials (safe to commit)
 ├── agent_onboarding.md                   # Context for AI-based agent onboarding
 ├── learner.csv                           # File where learnings are recorded
 ```
@@ -276,7 +277,7 @@ Each `agent_group` must have a brief textual explanation describing what it repr
 ### Prerequisites
 
 * Python 3.13 or later
-* [Gemini](https://aistudio.google.com/api-keys) API key
+* LLM API key (Gemini recommended - [Guide](https://chatgpt.com/share/695b7e82-d950-8001-bbf0-a3a949e375d1))
 
 ### Try It Out
 
@@ -285,8 +286,25 @@ Each `agent_group` must have a brief textual explanation describing what it repr
    git clone https://github.com/redbus-labs/LEAP
    cd LEAP
    ```
-2. Install dependencies (pip3 install -r requirements.txt)
-3. Add your Gemini API key to `credentials.json`
+2. [Install dependencies](https://chatgpt.com/share/695f5b4c-b5e0-8001-843e-e98e968a8e5a) (from `requirements.txt`)
+3. **Set up credentials** (choose one method):
+
+   **Method 1: Environment Variables (Recommended)**
+   ```bash
+   export GEMINI_API_KEY='your-api-key-here'
+   ```
+   
+   **Method 2: JSON File (Alternative)**
+   ```bash
+   cp credentials.json.example credentials.json
+   # Edit credentials.json and add your API keys
+   ```
+   
+   > **Security Note**: 
+   > - The `credentials.json` file is already in `.gitignore` and will not be committed to the repository
+   > - `credentials.json.example` is a template file (safe to commit) that shows the expected structure
+   > - **Environment variables are strongly recommended** as they prevent accidental credential exposure in code, logs, or version control
+   > - Never commit actual credentials to the repository
 4. Execute the sample test case under `core_agentic/test_trial.py`
 
 

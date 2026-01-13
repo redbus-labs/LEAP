@@ -12,6 +12,6 @@ def setup_and_teardown():
     print("Cleanup done, browser closed")
 
 def test_demo():
-        orchestrator("""I want to reach Sihanoukville. I am currently in Koh Touch Beach.
-        "I want to travel 15 days from today. Verify if there are any ferries available """)
+        orchestrator("""I want to reach <destination>. I am currently in <source>.
+        "I want to travel 10 days from today. Verify if there are any ferries available """)
 

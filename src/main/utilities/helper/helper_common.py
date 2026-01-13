@@ -175,14 +175,67 @@ class HelperInterface(HelperAgent):
                  temperature: int=0,
                  ) -> str:
         import json
-        obj = None
+        obj = {}
         project_root = run_configs.get_project_root()
         file_path = os.path.join(
             project_root,
             "credentials.json"
         )
-        with open(file_path) as f:
-            obj = json.load(f)
+        
+        # Priority 1: Load from environment variables (most secure for open source)
+        # Priority 2: Fall back to credentials.json file (for backward compatibility)
+        
+        # Try to load from JSON file if it exists
+        if os.path.exists(file_path):
+            try:
+                with open(file_path) as f:
+                    obj = json.load(f)
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"⚠️  Warning: Could not read credentials.json: {e}")
+                obj = {}
+        
+        # Override with environment variables if they exist (environment variables take precedence)
+        # This allows users to use env vars without needing the JSON file
+        if "GEMINI_API_KEY" in os.environ:
+            if "gemini" not in obj:
+                obj["gemini"] = {}
+            obj["gemini"]["key"] = os.environ["GEMINI_API_KEY"]
+        
+        if "GPT_INTERNAL_USERNAME" in os.environ:
+            if "gpt_internal" not in obj:
+                obj["gpt_internal"] = {}
+            obj["gpt_internal"]["username"] = os.environ["GPT_INTERNAL_USERNAME"]
+        
+        if "GPT_INTERNAL_PASSWORD" in os.environ:
+            if "gpt_internal" not in obj:
+                obj["gpt_internal"] = {}
+            obj["gpt_internal"]["password"] = os.environ["GPT_INTERNAL_PASSWORD"]
+        
+        # AWS Bedrock credentials from environment variables
+        if "AWS_BEDROCK_SERVICE_NAME" in os.environ:
+            if "aws_bedrock" not in obj:
+                obj["aws_bedrock"] = {}
+            obj["aws_bedrock"]["service_name"] = os.environ["AWS_BEDROCK_SERVICE_NAME"]
+        
+        if "AWS_BEDROCK_REGION" in os.environ:
+            if "aws_bedrock" not in obj:
+                obj["aws_bedrock"] = {}
+            obj["aws_bedrock"]["region_name"] = os.environ["AWS_BEDROCK_REGION"]
+        
+        if "AWS_ACCESS_KEY_ID" in os.environ:
+            if "aws_bedrock" not in obj:
+                obj["aws_bedrock"] = {}
+            obj["aws_bedrock"]["aws_access_key_id"] = os.environ["AWS_ACCESS_KEY_ID"]
+        
+        if "AWS_SECRET_ACCESS_KEY" in os.environ:
+            if "aws_bedrock" not in obj:
+                obj["aws_bedrock"] = {}
+            obj["aws_bedrock"]["aws_secret_access_key"] = os.environ["AWS_SECRET_ACCESS_KEY"]
+        
+        if "AWS_SESSION_TOKEN" in os.environ:
+            if "aws_bedrock" not in obj:
+                obj["aws_bedrock"] = {}
+            obj["aws_bedrock"]["aws_session_token"] = os.environ["AWS_SESSION_TOKEN"]
         userPrompt = systemPrompt + "\n\n" + userPrompt
         systemPrompt = ""
         startTime = time.time()
@@ -193,6 +246,17 @@ class HelperInterface(HelperAgent):
         headers = ""
         payload = ""
         if provider == run_configs.LLM_Provider.GEMINI:
+            # Validate credentials
+            if "gemini" not in obj or "key" not in obj.get("gemini", {}):
+                raise ValueError(
+                    "❌ Missing Gemini API key!\n\n"
+                    "Please set your credentials using one of these methods:\n"
+                    "1. Environment variable (recommended): export GEMINI_API_KEY='your-api-key'\n"
+                    "2. JSON file: Create credentials.json with: {\"gemini\": {\"key\": \"your-api-key\"}}\n"
+                    "   See credentials.json.example for a template.\n\n"
+                    "Get your API key: https://aistudio.google.com/app/apikey"
+                )
+            
             user_parts = [{
                 "text": userPrompt
             }]
@@ -232,6 +296,19 @@ class HelperInterface(HelperAgent):
                     "thinkingBudget": 24576
                 }
         elif provider == run_configs.LLM_Provider.OPENAI_INTERNAL:
+            # Validate credentials
+            if "gpt_internal" not in obj or "username" not in obj.get("gpt_internal", {}) or "password" not in obj.get("gpt_internal", {}):
+                raise ValueError(
+                    "❌ Missing GPT Internal credentials!\n\n"
+                    "Please set your credentials using one of these methods:\n"
+                    "1. Environment variables (recommended):\n"
+                    "   export GPT_INTERNAL_USERNAME='your-username'\n"
+                    "   export GPT_INTERNAL_PASSWORD='your-password'\n"
+                    "2. JSON file: Create credentials.json with:\n"
+                    "   {\"gpt_internal\": {\"username\": \"your-username\", \"password\": \"your-password\"}}\n"
+                    "   See credentials.json.example for a template."
+                )
+            
             model_code = None
             # Handle both enum and string types
             model_value = model.value if hasattr(model, 'value') else model
@@ -314,6 +391,29 @@ class HelperInterface(HelperAgent):
                               "/usage/output_tokens"]
 
         if provider == run_configs.LLM_Provider.AWS_BEDROCK:
+            # Validate credentials
+            required_fields = ["service_name", "region_name", "aws_access_key_id", "aws_secret_access_key"]
+            if "aws_bedrock" not in obj:
+                raise ValueError(
+                    "❌ Missing AWS Bedrock credentials!\n\n"
+                    "Please set your credentials using one of these methods:\n"
+                    "1. Environment variables (recommended):\n"
+                    "   export AWS_BEDROCK_SERVICE_NAME='bedrock-runtime'\n"
+                    "   export AWS_BEDROCK_REGION='us-east-1'\n"
+                    "   export AWS_ACCESS_KEY_ID='your-access-key'\n"
+                    "   export AWS_SECRET_ACCESS_KEY='your-secret-key'\n"
+                    "   export AWS_SESSION_TOKEN='your-session-token'  # Optional\n"
+                    "2. JSON file: Create credentials.json with aws_bedrock section.\n"
+                    "   See credentials.json.example for a template."
+                )
+            
+            missing_fields = [field for field in required_fields if field not in obj.get("aws_bedrock", {})]
+            if missing_fields:
+                raise ValueError(
+                    f"❌ Missing AWS Bedrock credential fields: {', '.join(missing_fields)}\n\n"
+                    "Please set all required credentials. See credentials.json.example for a template."
+                )
+            
             import boto3
             config = Config(
                 read_timeout=300,  # 5 minutes
@@ -325,7 +425,7 @@ class HelperInterface(HelperAgent):
                 region_name = obj["aws_bedrock"]["region_name"],
                 aws_access_key_id = obj["aws_bedrock"]["aws_access_key_id"],
                 aws_secret_access_key = obj["aws_bedrock"]["aws_secret_access_key"],
-                aws_session_token = obj["aws_bedrock"]["aws_session_token"]
+                aws_session_token = obj["aws_bedrock"].get("aws_session_token")  # Optional field
             )
             if thinking:
                 payload = {
