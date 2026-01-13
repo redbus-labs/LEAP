@@ -22,7 +22,7 @@ This framework leverages Agentic AI to autonomously execute frontend test cases 
 ---
 ## MANDATORY PRE-READ
 
-[Link](https://docs.google.com/document/d/1NG4frPBwdZE03NY0w3f3ywki4tW4VVbDnPZxRiTLCOk/edit?tab=t.0)
+[Link](https://medium.com/@krishna.d.hegde/l-e-a-p-6b73e748de33)
 
 ---
 ## Project Structure
