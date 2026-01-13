@@ -211,7 +211,7 @@ run_configs.setRef("search_result_page")
 4. **Enable Self-Healing**
 
 * Always wrap locators with `selfHeal()`
-* Enables recovery from minor UI changes (WIP)
+* Enables recovery from minor UI text changes
 
 ### Example
 
