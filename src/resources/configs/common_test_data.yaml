@@ -1,0 +1,47 @@
+# Base test data for Ferry LOB (all geos, all channels)
+# More specific files (geo/channel) override these values
+
+# Journey Details
+source: "Kampong Chhnang"
+destination: "Takeo"
+partialDestination: "Tak"
+liveSource: "Koh Rong (Koh Touch Beach)"
+liveDestination: "Sihanoukville Port"
+departureDays: 1
+returnDays: 2
+ferryName: "Demo Ferry"
+oopsSource: "Koh Rong Sanloem"
+
+# Contact Details
+validEmail: "abc@gmail.com"
+invalidEmail: "abcgmail.com"
+validPhone: "88998899"
+validPhoneIND: "8899889988"
+invalidPhone: "99999"
+defaultCountryCode: "+855 KHM"
+countryCode: "+91 (IND)"
+
+# Passenger Details
+validName: "Test"
+invalidName: ""
+validAge: "25"
+invalidAge: "200"
+invalidAge_minAge: "0"
+invalidAge_maxAge: "151"
+
+# Multiple Passengers
+name1: "Test 1"
+age1: "25"
+nationality1: "India"
+name2: "Test 2"
+age2: "27"
+nationality2: "Singapore"
+
+# Dates
+futureDate: "25/08/2030"
+pastDate: "25/08/2020"
+
+# Coupons
+validCoupon: "KHFERRYTEST"
+invalidCoupon: "ABCDEF"
+

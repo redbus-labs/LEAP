@@ -1,0 +1,9 @@
+
+.idea/
+.pytest_cache/
+.venv/
+__pycache__/
+credentials.json
+**/.DS_Store
+.vscode/
+trace.zip
