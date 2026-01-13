@@ -534,29 +534,7 @@ class HelperInterface(HelperAgent):
             else:
                 abc = text
             locator = self.verifyAndGetLocator(locator, text, position)
-            # print("Locator after verification inside self heal function: " + str(locator))
-            if locator is None:
-                print("Locator not found, generating locator using LLM")
-                locator_description = ""
-                # Step 1: get the caller's frame
-                caller_frame = inspect.currentframe().f_back
-                self_instance = caller_frame.f_locals.get('self')  # the calling instance
-                method_name = caller_frame.f_code.co_name  # "P"
-                # Step 2: walk the MRO to find the parent implementation
-                for cls in type(self_instance).mro()[1:]:  # skip the current class
-                    if method_name in cls.__dict__:
-                        parent_method = cls.__dict__[method_name]
-                        # Step 3: fetch the source of the parent method
-                        source_lines, _ = inspect.getsourcelines(parent_method)
-                        locator_description =  "".join(source_lines)
-                locator_description = locator_description.replace("@abstractmethod", "")
-                locator_description = locator_description.replace("(self, ", "(")
-                print(locator_description)
-                locator = self.locatorGenUsingLLM(locator_description)
-                locator = self.verifyAndGetLocator(locator, text, position)
-                print("Locator after self-healing: " + str(locator))
-            return locator
-        return ""
+        return locator
 
     def verifyAndGetLocator(self, locator, text, position):
         if locator is None or locator == "":
@@ -680,16 +658,8 @@ class HelperInterface(HelperAgent):
                 abc = ""
             else:
                 abc = text
-            # print("Dynamic params: " + abc + " " + str(position))
             locator = self.verifyAndGetLocator(locator, text, position)
-            if locator is None:
-                print("Locator not found, generating locator using LLM")
-                print(locator_description)
-                locator = self.locatorGenUsingLLM(locator_description)
-                locator = self.verifyAndGetLocator(locator, text, position)
-                print("Locator after self-healing: " + locator)
-            return locator
-        return ""
+        return locator
 
     @abstractmethod
     def navigateBack(self):
