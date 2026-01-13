@@ -1,6 +1,2 @@
-# Base test data for Ferry LOB (all geos, all channels)
-# More specific files (geo/channel) override these values
-
-# Journey Details
 source: "Koh Touch Beach"
 destination: "Sihanoukville"
