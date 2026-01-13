@@ -189,7 +189,7 @@ def ferryTupleByFerryName(
 
 ---
 
-## 🔧 Locator Best Practices
+## Locator Best Practices
 
 1. **Maximize Coverage with Minimal Locators**
 
