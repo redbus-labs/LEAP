@@ -276,16 +276,16 @@ Each `agent_group` must have a brief textual explanation describing what it repr
 ### Prerequisites
 
 * Python 3.13 or later
-* Gemini API key ([Guide](https://chatgpt.com/share/695b7e82-d950-8001-bbf0-a3a949e375d1))
+* [Gemini](https://aistudio.google.com/api-keys) API key
 
 ### Try It Out
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/redbus-labs/LEAP
-   cd frontend-test-automation-agentic
+   cd LEAP
    ```
-2. [Install dependencies](https://chatgpt.com/share/695f5b4c-b5e0-8001-843e-e98e968a8e5a) (from `requirements.txt`)
+2. Install dependencies (pip3 install -r requirements.txt)
 3. Add your Gemini API key to `credentials.json`
 4. Execute the sample test case under `core_agentic/test_trial.py`
 
@@ -293,7 +293,7 @@ Each `agent_group` must have a brief textual explanation describing what it repr
 ### Few Points to Keep in Mind
 
 * The quality of descriptions directly impacts accuracy
-* Recommended LLMs [As of 13 Jan 2026] : Gemini 2.5 Pro/Gemini 3 Pro
+* Recommended LLMs [As of 14 Jan 2026] : Gemini 2.5 Pro/Gemini 3 Pro
 * Keep the LLM's `thinking` enabled in run configurations for better results.
 
 ---
