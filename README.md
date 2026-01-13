@@ -11,7 +11,7 @@ This framework leverages Agentic AI to autonomously execute frontend test cases 
 - [Config Usage in Test Cases](#config-usage-in-test-cases)
 - [Onboarding Checklist for a New Agent](#onboarding-checklist-for-a-new-agent)
 - [Tool Onboarding Process](#tool-onboarding-process)
-- [Locator Best Practices](#-locator-best-practices)
+- [Locator Best Practices](#locator-best-practices)
 - [Additional Requirements](#additional-requirements)
 - [Quick Start](#quick-start)
 - [Roadmap](#roadmap)
