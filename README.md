@@ -22,7 +22,7 @@ This framework leverages Agentic AI to autonomously execute frontend test cases 
 ---
 ## MANDATORY PRE-READ
 
-[Link](https://medium.com/@krishna.d.hegde/l-e-a-p-6b73e748de33)
+[Link](https://www.linkedin.com/pulse/leap-llm-driven-execution-automation-platform-krishna-hegde-ex5qc?trk=public_post_feed-article-content)
 
 ---
 ## Project Structure
@@ -81,7 +81,7 @@ When writing test cases in natural language, configuration values can be referen
 Without config:
 
 ```
-Search for ferries from Location-1 Chhangg to Location-2
+Search for ferries from Location-1 to Location-2
 ```
 
 With config:
@@ -380,7 +380,7 @@ Please read our [Contributing Guidelines](https://github.com/redbus-labs/LEAP/bl
 **Special Thanks**:
 
 * [Smruti Sourav Sahoo](https://www.linkedin.com/in/smruti-sourav-2000/), SDET, redBus — for supporting the development efforts and being an early adopter of the project
-* [Vishnuvardhan Reddy Bhumannagari](https://www.facebook.com/share/1GHW8SHjLq), Senior SDET Manager, redBus — for introducing visual assertions at redBus
+* [Vishnuvardhan Reddy Bhumannagari](https://www.facebook.com/share/1GHW8SHjLq), Senior SDET Manager, redBus — for introducing AI-based visual assertions at redBus
 * [Rithish Saralaya](https://www.linkedin.com/in/rithish/), SVP Engineering, redBus — for organizing Project Nirman, an AI-first initiative that helped uncover key gaps in the framework and fast-track its growth.
 
 ---
