@@ -235,6 +235,10 @@ def functionPlanner():
         - Ensure the entire placeholder is wrapped in single quotes inside `getConfig()` and is passed as a string.
         - **Example**: `helper.type(locator.src(), getConfig('<source>'))`
 
+    13. 🚫 NO UI FLOW INFERENCE (THE "LITERALISM" RULE):
+        13.1 Zero Assumptions: You are strictly forbidden from making any assumptions about the application's behavior or UI flow. 
+        13.2 No Implied Navigation: Unless **explicitly** specified, you must NOT assume that clicking a button, selecting a value, or any other action will automatically navigate to a new page or change the UI state, even if it seems typical or logical.
+   
     ---
 
     ### ✅ Response Format:
@@ -249,7 +253,7 @@ def functionPlanner():
         }}
       ],
       "Reasoning": "string, Explain in depth why you chose these functions from all available LocatorFunctions. Also if any assertion is being performed, explain why exactly and explain if you have strictly followed Rule 6, 7, 8, 9, 10, 11. If you did not choose any function from the provided set of functions explain why in depth",
-      "PendingTasks": "string, your job is to remove the subtasks which will be achieved by all these function calls from the `Task to accomplish` and return what still needs to be done. Return the result as a single string. If all parts of the main task are already completed, return \\"None\\" (as a string, not null). Do not repeat or rephrase the completed steps. Do not modify wording unnecessarily. Only subtract exact or overlapping instructions. Ensure the final output is concise and preserves valid natural language."
+      "PendingTasks": "string, your job is to remove only those subtasks which will be achieved by all these function calls from the `Task to accomplish` and return everything else which still needs to be done. You must subtract ONLY the exact, literal phrase corresponding to the action(s) completed in the FunctionCalls array. 14.2 You are forbidden from removing subsequent parts of the same sentence or instruction, as you cannot assume they were also completed by the same action. Return the result as a single string. If all parts of the main task are already completed, return \\"None\\" (as a string, not null). Do not repeat or rephrase the completed steps. Do not modify wording unnecessarily. Only subtract exact or overlapping instructions. Ensure the final output is concise and preserves valid natural language."
     }}
     """
 
