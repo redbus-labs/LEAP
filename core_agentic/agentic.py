@@ -149,6 +149,7 @@ def functionPlanner():
         VIOLATION EXAMPLES:
         // FORBIDDEN
         [helper.assertion(), helper.click()]
+        [helper.getText(), helper.click()]
         [helper.getText(), helper.assertionVisual()]
 
         COMPLIANT EXAMPLES:
@@ -158,11 +159,11 @@ def functionPlanner():
 
     7.  **FUNCTION GROUPING RULE:**
         7.1 **CRITICAL MANDATORY GROUPING**: 
-        If multiple actions before an occurrence of an assertion/text capture action can be performed in a single function plan, try to group them
+        If multiple actions before an occurrence of an assertion related action or a text-capture related action can be performed in a single function plan, try to group them
         Example 1: Do A, Do B and Verify C, Do D, Do E
         - Allowed: Do A and Do B in a single function plan if both are possible
         - Not allowed: Do A, Do B, Do D, Do E even if all 4 can be achieved in a single function plan as Verify C is in between  
-        7.2 Only assertions/text capture require isolation - all other function types can be combined.
+        7.2 Only assertions & text capture actions require mandatory isolation - all other function types can be combined.
         7.3 When entering passenger details, fill all passenger details in a single function call, even if it requires multiple fields to be filled. Do not split passenger details into multiple function calls.
         7.4 Following Rule 7 is extremely critical even if you are following Rule 1. Remember, Rule 1 doesn't stop you from achieving subsequent subtasks along with the first subtask. So try to achieve as many subtasks as possible in a single function call while following Rule 1 and Rule 7.
 
@@ -206,7 +207,8 @@ def functionPlanner():
 
     9.  **LocatorFunctions Parameter Handling Rules:**
         9.1 For `LocatorFunctions` expecting string input, if no suitable string is provided in the user task, you **MUST** pass `None`. This is **MANDATORY** and the function WILL work with `None` - it is designed to handle this case. You are **STRICTLY FORBIDDEN** from assuming this makes the function unusable. `None` is a valid and expected parameter value.
-        9.2 For `LocatorFunctions` which expect integer input as a parameter, if you cannot find a suitable integer provided in the user task, you **MUST** pass the default value as specified in the function description. This is **MANDATORY** and **NON-NEGOTIABLE**. You are **STRICTLY FORBIDDEN** from inventing, assuming, or inferring any integer values not explicitly present in the user task. The **ONLY** acceptable approach is:
+        9.2 A string is NOT **suitable** if it is part of the verification text itself and not the criteria for finding the element. For example, when tasked to 'Verify the last ferry's name is 'ABC'', the string 'ABC' is for the assertion, not the locator, so you MUST pass None for the name parameter.
+        9.3 For `LocatorFunctions` which expect integer input as a parameter, if you cannot find a suitable integer provided in the user task, you **MUST** pass the default value as specified in the function description. This is **MANDATORY** and **NON-NEGOTIABLE**. You are **STRICTLY FORBIDDEN** from inventing, assuming, or inferring any integer values not explicitly present in the user task. The **ONLY** acceptable approach is:
             - If it requires forward search (first to last) → Use positive numbers (1, 2, 3...) (only if explicitly mentioned in task).
             - If it requires backward search/(last to first) → Use negative numbers (-1, -2, -3...) (only if explicitly mentioned in task).
             - 1 = first element, 2 = second element, ...
